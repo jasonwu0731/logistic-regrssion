@@ -51,6 +51,7 @@ def get_info(revs, words_list):
     TODO: 
         First check what is revs. Then calculate max len among the sentences and the number of the total words
         in the data.
+        nb_sent, max_len, word_count are scalars
     """  
     nb_sent, max_len, word_count = 0, 0, 0
     return nb_sent, max_len, word_count
@@ -72,7 +73,8 @@ def feature_extraction_bow(revs, word2idx):
     """
     TODO: 
         Convert sentences into vectors using BoW. 
-        data should be a 2-D array with the size (nb_sentence*nb_vocab)
+        data is a 2-D array with the size (nb_sentence*nb_vocab)
+        label is a 2-D array with the size (nb_sentence*1)
     """  
     data = []
     label = []

@@ -6,9 +6,10 @@ from preprocess import data_preprocess, feature_extraction_bow
 
 def sigmoid(z):
     """
-    TODO: Implement sigmoid function
+    TODO: Implement sigmoid function. s is a vector with the size as z.
     """  
-    return z
+    s = z
+    return s
 
 def initialize_w_and_b(dimension):
     w = np.zeros((dimension,1))
@@ -25,6 +26,7 @@ def compute_loss(A, Y, m):
     """
     TODO: 
         Compute the loss function based on the formula you derived.
+        loss is a scalar
         Hint:
             1) The formula should be (-1.0 / m) * np.sum(...)
     """  
@@ -35,6 +37,7 @@ def back_prop(X, A, Y, m):
     """
     TODO: 
         Compute the gradient based on the formula you derived.
+        dw and db are two scalars.
         Hint:
             1) The formula of dw should be (1.0 / m) * np.dot(...)
             2) The formula of db should be (1.0 / m) * np.sum(...)
@@ -56,11 +59,8 @@ def optimize(w, b, X, Y, X_dev, Y_dev, num_iterations, learning_rate, output_nam
         cost = compute_loss(f_x, Y, m)
         grads = back_prop(X, f_x, Y, m)
 
-        dw = grads["dw"]
-        db = grads["db"]
-
-        w = w - learning_rate * dw
-        b = b - learning_rate * db
+        w = w - learning_rate * grads["dw"]
+        b = b - learning_rate * grads["db"]
         
         Y_prediction_train = predict(w, b, X)
         Y_prediction_dev = predict(w, b, X_dev)
@@ -85,14 +85,18 @@ def predict(w, b, X):
     TODO: 
         Predict the sentiment class based on the f(x) value. 
         if f(x) > 0.5, then pred value is 1, otherwise is 0.
-        Y_prediction should be a 2-D array with the size (1*nb_sentence)
+        Y_prediction is a 2-D array with the size (1*nb_sentence)
     """  
     m = X.shape[1]
     Y_prediction = np.zeros((1, m))
     return Y_prediction
 
 def compare(pred, gold):
-    acc = 100 - np.mean(np.abs(pred - gold)) * 100
+    """
+    TODO: 
+        Compute the accuracy based on two array, pred and gold, and return a scalar between [0, 100]
+    """  
+    acc = 0
     return acc
 
 def write_testset_prediction(parameters, test_data, file_name="myPrediction.csv"):
